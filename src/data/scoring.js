@@ -1,6 +1,8 @@
 /**
  * Scoring and progression state manager for Ganesha: The 21 Modaks
  */
+import { supabaseService } from './supabase.js';
+
 export const SCORING_TABLE = {
   MODAK_COLLECTED: 100,
   CHALLENGE_COMPLETED: 500,
@@ -51,13 +53,16 @@ export class GameState {
     }
   }
 
-  saveHighScore() {
+  saveHighScore(playerName = 'Devotee') {
     try {
       const current = this.getHighScore();
       if (this.score > current) {
         localStorage.setItem('ganesha_21_modaks_highscore', this.score.toString());
-        return true;
       }
+      // Submit to Supabase Global Leaderboard (if configured)
+      const rating = this.getRating();
+      supabaseService.submitScore(playerName, this.score, this.modaksCollected, rating.title);
+      return true;
     } catch {
       // Ignore localStorage access errors
     }
