@@ -1,0 +1,29 @@
+# Ganesha: The 21 Modaks — Antigravity project rules
+
+- Phaser 3 browser game. NO bundler/build step — Phaser via CDN
+  <script>, plain ES modules for src/ files. package.json is metadata
+  only, never a required build step to run the game.
+- Follow the file structure in memory-bank/projectbrief.md exactly —
+  one Scene per file under src/scenes/, shared entities under
+  src/objects/, static data (challenges, scoring) under src/data/.
+- This is a refactor/polish pass of an already-working prototype, not
+  a redesign. Preserve existing mechanics and scoring values unless a
+  decision in projectbrief.md explicitly changes them.
+- Scoring values are fixed (see projectbrief.md Decision 2). Any combo/
+  streak bonus is additive flavor only, capped, and must never push
+  the rating bands out of their defined ranges.
+- Every mini-game needs a working keyboard control path AND a touch/
+  click control path. In ModakRunScene and EcoScene specifically,
+  touch handlers must ignore pointerdown events where
+  `pointer.y > H - 90` to avoid conflicting with the HUD ability
+  buttons (see projectbrief.md Decision 3).
+- Deployment is part of Definition of Done, not a follow-up step — a
+  phase isn't complete until verified against the LIVE public URL.
+- Never mark a phase done without running the game and confirming: no
+  console errors, all 5 challenges completable, celebration triggers
+  after 21 Modaks.
+- Keep asset files optimized (PNG/WebP if any real images are added;
+  procedural canvas/Web Audio generation is preferred over binary
+  assets where it already covers the need).
+- Update memory-bank/progress.md at the end of every session with what
+  changed and what's next.

@@ -1,0 +1,19 @@
+{
+  "name": "ganesha-21-modaks",
+  "version": "1.0.0",
+  "description": "Ganesha: The 21 Modaks - A festival adventure browser game built with Phaser 3",
+  "main": "src/main.js",
+  "type": "module",
+  "scripts": {
+    "start": "npx -y serve . -p 8080"
+  },
+  "keywords": [
+    "phaser3",
+    "game",
+    "ganesh-chaturthi",
+    "modak",
+    "festival"
+  ],
+  "author": "Antigravity Team",
+  "license": "MIT"
+}

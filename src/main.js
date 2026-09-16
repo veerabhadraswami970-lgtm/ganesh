@@ -1,0 +1,52 @@
+/**
+ * Main game entry point and Phaser 3 configuration
+ * Ganesha: The 21 Modaks
+ */
+import BootScene from './scenes/BootScene.js';
+import MenuScene from './scenes/MenuScene.js';
+import StoryScene from './scenes/StoryScene.js';
+import HUDScene from './scenes/HUDScene.js';
+import ModakRunScene from './scenes/ModakRunScene.js';
+import MemoryScene from './scenes/MemoryScene.js';
+import PandalScene from './scenes/PandalScene.js';
+import EcoScene from './scenes/EcoScene.js';
+import RhythmScene from './scenes/RhythmScene.js';
+import ResultScene from './scenes/ResultScene.js';
+import CelebrationScene from './scenes/CelebrationScene.js';
+
+const config = {
+  type: Phaser.AUTO,
+  parent: 'phaser-game',
+  width: 900,
+  height: 600,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
+  },
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 0 },
+      debug: false
+    }
+  },
+  backgroundColor: '#12091f',
+  scene: [
+    BootScene,
+    MenuScene,
+    StoryScene,
+    HUDScene,
+    ModakRunScene,
+    MemoryScene,
+    PandalScene,
+    EcoScene,
+    RhythmScene,
+    ResultScene,
+    CelebrationScene
+  ]
+};
+
+window.addEventListener('load', () => {
+  const game = new Phaser.Game(config);
+  window.game = game;
+});

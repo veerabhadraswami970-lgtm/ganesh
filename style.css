@@ -1,0 +1,60 @@
+:root {
+  --color-saffron: #ff7700;
+  --color-saffron-light: #ff9e42;
+  --color-marigold: #f9a825;
+  --color-gold: #ffd54f;
+  --color-crimson: #c2185b;
+  --color-emerald: #1b5e20;
+  --color-divine-purple: #4a148c;
+  --color-bg-dark: #12091f;
+  --color-bg-gradient: radial-gradient(circle at center, #2e1045 0%, #150624 70%, #0c0214 100%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-bg-dark);
+  background: var(--color-bg-gradient);
+  font-family: 'Outfit', sans-serif;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 900px;
+  max-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(249, 168, 37, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #000;
+}
+
+#phaser-game {
+  width: 100%;
+  height: 100%;
+}
+
+canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+}
