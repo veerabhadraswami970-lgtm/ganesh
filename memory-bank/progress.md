@@ -32,7 +32,11 @@
 - [x] Generated brand assets and favicons in `src/assets/branding/`
 - [x] Preserved all 2D Phaser mini-game logic intact in `src/scenes/`
 - [x] Updated `index.html` with Three.js CDN, brand favicon, and 3D canvas viewport
-- [x] Updated `style.css` with 3D perspective, tilt cards, 4-stage accent dots, and pure black festival styling
+- [x] Implemented `src/data/supabase.js` (Supabase client, global leaderboard submit/fetch, offline fallback)
+- [x] Implemented 3D Global Leaderboard modal view in `src/ui3d/menu3d.js` and "🏆 LEADERBOARD" button in `src/scenes/MenuScene.js`
+- [x] Added `render.yaml` for Render.com static deployment
+- [x] Added `vercel.json` for Vercel 1-click deployment
 
 ## Next Steps
-- Continuous polish and performance monitoring.
+- Continuous polish and live deployment monitoring.
+
