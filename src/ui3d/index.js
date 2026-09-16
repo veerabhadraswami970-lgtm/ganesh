@@ -39,16 +39,18 @@ class UI3DManager {
     this.menu3d = new Menu3D({ container: gameContainer, game: this.game });
     this.transitions = new Transitions3D(gameContainer);
 
-    // 3. Initialize 3D Loader
-    this.loader = new Loader3D({
-      container: document.body,
-      onComplete: () => {
-        // When user taps "TAP TO BEGIN", transition cleanly into game
-        if (this.background) {
-          this.background.setMode('menu');
+    // 3. Initialize 3D Loader if intro-root is not handling the opening experience
+    const introRoot = document.getElementById('intro-root');
+    if (!introRoot) {
+      this.loader = new Loader3D({
+        container: document.body,
+        onComplete: () => {
+          if (this.background) {
+            this.background.setMode('menu');
+          }
         }
-      }
-    });
+      });
+    }
 
     // 4. Wire Global Game Events
     this.wireGameEvents();

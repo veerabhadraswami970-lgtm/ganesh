@@ -14,6 +14,7 @@ import RhythmScene from './scenes/RhythmScene.js';
 import ResultScene from './scenes/ResultScene.js';
 import CelebrationScene from './scenes/CelebrationScene.js';
 import { init3DUI } from './ui3d/index.js';
+import { initOpeningExperience } from './intro/index.js';
 
 const config = {
   type: Phaser.AUTO,
@@ -48,9 +49,13 @@ const config = {
 };
 
 window.addEventListener('load', () => {
+  // 1. Mount React Opening Experience (Intro Video -> Transition -> 21 Modaks Loader)
+  initOpeningExperience();
+
+  // 2. Initialize Phaser Game Engine
   const game = new Phaser.Game(config);
   window.game = game;
 
-  // Initialize 3D Loader, 3D Ambient Background & UI Shell
+  // 3. Initialize 3D Background & UI Shell
   init3DUI(game);
 });
