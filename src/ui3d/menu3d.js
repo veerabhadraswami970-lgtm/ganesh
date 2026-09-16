@@ -149,6 +149,84 @@ export class Menu3D {
   }
 
   /**
+   * Opens a 3D Global Leaderboard Modal from Supabase
+   */
+  async showLeaderboardModal() {
+    const existing = document.getElementById('modal-3d-leaderboard');
+    if (existing) existing.remove();
+
+    const modal = document.createElement('div');
+    modal.id = 'modal-3d-leaderboard';
+    modal.className = 'modal-3d-overlay';
+
+    modal.innerHTML = `
+      <div class="modal-3d-content" style="max-width: 560px;">
+        <div class="modal-3d-header">
+          <h2 class="modal-3d-title">🏆 GLOBAL LEADERBOARD</h2>
+          <p class="modal-3d-sub">Top Devotees of Lord Ganesha</p>
+        </div>
+
+        <div class="leaderboard-list-wrap" id="lb-list-wrap" style="width: 100%; margin-bottom: 20px;">
+          <div style="text-align: center; padding: 20px; color: #ffd54f;">Fetching sacred rankings...</div>
+        </div>
+
+        <button class="modal-3d-close-btn" id="modal-lb-close">
+          <span>✕ CLOSE LEADERBOARD</span>
+        </button>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    const closeBtn = modal.querySelector('#modal-lb-close');
+    closeBtn.addEventListener('click', () => {
+      soundManager.playDholThump(120);
+      modal.classList.add('fade-out');
+      setTimeout(() => modal.remove(), 300);
+    });
+
+    // Fetch scores from Supabase or fallback
+    const { supabaseService } = await import('../data/supabase.js');
+    let scores = await supabaseService.getTopScores(8);
+
+    if (!scores || scores.length === 0) {
+      // Mock / local scores fallback
+      const localHigh = gameState.getHighScore();
+      scores = [
+        { player_name: 'Devotee Veera', score: Math.max(localHigh, 9250), modaks_collected: 21, rank_title: 'Vighna Vinashi' },
+        { player_name: 'Mushika Fan', score: 8100, modaks_collected: 21, rank_title: 'Wisdom Champion' },
+        { player_name: 'Bappa Bhakt', score: 6850, modaks_collected: 18, rank_title: 'Wisdom Champion' },
+        { player_name: 'Aarti Seeker', score: 4900, modaks_collected: 14, rank_title: 'Bappa Helper' }
+      ];
+    }
+
+    const listHtml = scores.map((s, idx) => {
+      const rankBadge = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`;
+      const highlight = idx === 0 ? 'border: 1px solid #ffd54f; background: rgba(242, 179, 61, 0.15);' : 'background: rgba(255, 255, 255, 0.04);';
+      return `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; margin-bottom: 8px; border-radius: 10px; ${highlight}">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 16px; font-weight: 800; min-width: 24px;">${rankBadge}</span>
+            <div>
+              <div style="font-weight: 700; color: #ffffff; font-size: 14px;">${s.player_name || 'Devotee'}</div>
+              <div style="font-size: 11px; color: #ff9e42;">${s.rank_title || 'Devotee'}</div>
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-weight: 800; color: #ffd54f; font-size: 15px;">${s.score} pts</div>
+            <div style="font-size: 11px; color: rgba(255, 255, 255, 0.6);">🥟 ${s.modaks_collected || 0}/21</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    const listWrap = modal.querySelector('#lb-list-wrap');
+    if (listWrap) {
+      listWrap.innerHTML = listHtml;
+    }
+  }
+
+  /**
    * Applies 3D Pop/Flip animation on HUD elements when score or modaks change
    */
   animateHUDValueChange(element) {

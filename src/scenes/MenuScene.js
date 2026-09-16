@@ -145,9 +145,17 @@ export default class MenuScene extends Phaser.Scene {
     });
 
     // How to Play Button
-    this.createButton(width / 2, 535, '📖 HOW TO PLAY', '#ff7700', '#e65100', () => {
+    this.createButton(width / 2 - 130, 535, '📖 HOW TO PLAY', '#ff7700', '#e65100', () => {
       soundManager.playPickupDing();
       this.showHowToPlayModal();
+    });
+
+    // Global Leaderboard Button (Supabase)
+    this.createButton(width / 2 + 130, 535, '🏆 LEADERBOARD', '#ffd54f', '#f57f17', () => {
+      soundManager.playBellChime(1046.5);
+      if (window.open3DLeaderboard) {
+        window.open3DLeaderboard();
+      }
     });
 
     // Audio Mute toggle button (top right)

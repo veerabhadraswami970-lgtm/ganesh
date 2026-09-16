@@ -82,6 +82,13 @@ class UI3DManager {
       }
     };
 
+    // Expose open Global Leaderboard
+    window.open3DLeaderboard = () => {
+      if (this.menu3d) {
+        this.menu3d.showLeaderboardModal();
+      }
+    };
+
     // Expose 3D Cube Scene Transition
     window.transition3DScene = (onMidpoint, dir = 'left') => {
       if (this.transitions) {
