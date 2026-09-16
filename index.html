@@ -5,18 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Ganesha: The 21 Modaks | Festival Adventure Game</title>
   <meta name="description" content="Help Mushika prepare for Ganesh Chaturthi by clearing 5 festival mini-game challenges to collect 21 Modaks and trigger the grand celebration!">
+  
+  <!-- Brand Favicon & Icons -->
+  <link rel="icon" type="image/svg+xml" href="./src/assets/branding/ganesha-logo.svg">
+  <link rel="alternate icon" href="./src/assets/branding/ganesha-logo.svg">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Outfit:wght@400;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Three.js (r160) CDN (Zero build step) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
   <!-- Phaser 3 CDN (Zero build step) -->
   <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
 </head>
 <body>
-  <div id="game-container">
-    <div id="phaser-game"></div>
+  <!-- Ambient 3D Three.js Background Canvas (Non-blocking, pointer-events: none) -->
+  <canvas id="three-bg-canvas"></canvas>
+
+  <!-- Main Game 3D Perspective Container -->
+  <div id="game-perspective-wrapper">
+    <div id="game-container">
+      <div id="phaser-game"></div>
+    </div>
   </div>
 
+  <!-- Main ES Module Entry Point -->
   <script type="module" src="./src/main.js"></script>
 </body>
 </html>

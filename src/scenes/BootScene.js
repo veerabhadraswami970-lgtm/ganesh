@@ -32,16 +32,33 @@ export default class BootScene extends Phaser.Scene {
 
   generateTextures() {
     this.createMushikaTexture();
+    this.game.events.emit('loader:progress', 0.15);
+
     this.createModakTexture();
+    this.game.events.emit('loader:progress', 0.30);
+
     this.createDiyaTexture();
+    this.game.events.emit('loader:progress', 0.45);
+
     this.createPujaItems();
+    this.game.events.emit('loader:progress', 0.60);
+
     this.createBellTextures();
+    this.game.events.emit('loader:progress', 0.75);
+
     this.createEcoTextures();
+    this.game.events.emit('loader:progress', 0.85);
+
     this.createRhythmTextures();
+    this.game.events.emit('loader:progress', 0.90);
+
     this.createObstacleTextures();
     this.createParticleTextures();
     this.createGaneshaEmblemTexture();
+    this.game.events.emit('loader:progress', 0.96);
+
     this.createExtraTextures();
+    this.game.events.emit('loader:progress', 1.0);
   }
 
   createMushikaTexture() {
@@ -445,59 +462,87 @@ export default class BootScene extends Phaser.Scene {
 
   createGaneshaEmblemTexture() {
     if (this.textures.exists('ganesha_emblem')) return;
-    const c = this.textures.createCanvas('ganesha_emblem', 100, 100);
+    const c = this.textures.createCanvas('ganesha_emblem', 128, 128);
     const ctx = c.getContext();
 
-    // Divine halo aura
-    const grad = ctx.createRadialGradient(50, 50, 10, 50, 50, 48);
-    grad.addColorStop(0, 'rgba(255, 213, 79, 0.9)');
-    grad.addColorStop(0.6, 'rgba(255, 119, 0, 0.5)');
-    grad.addColorStop(1, 'rgba(74, 20, 140, 0)');
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(50, 50, 48, 0, Math.PI * 2);
-    ctx.fill();
+    // Brand gradient stroke (Indigo -> Cyan -> Violet -> Amber -> Coral)
+    const grad = ctx.createLinearGradient(20, 10, 108, 118);
+    grad.addColorStop(0.0, '#3b2fd4');
+    grad.addColorStop(0.25, '#00e5ff');
+    grad.addColorStop(0.5, '#a63bd6');
+    grad.addColorStop(0.75, '#f2b33d');
+    grad.addColorStop(1.0, '#e8547a');
 
-    // Golden Crown (Mukut)
-    ctx.fillStyle = '#ffd54f';
-    ctx.beginPath();
-    ctx.moveTo(50, 12);
-    ctx.lineTo(62, 34);
-    ctx.lineTo(38, 34);
-    ctx.closePath();
-    ctx.fill();
-    ctx.strokeStyle = '#c2185b';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    // Big Ears
-    ctx.fillStyle = '#ff9e42';
-    ctx.beginPath();
-    ctx.arc(28, 44, 14, 0, Math.PI * 2);
-    ctx.arc(72, 44, 14, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Face / Head
-    ctx.fillStyle = '#ff9e42';
-    ctx.beginPath();
-    ctx.arc(50, 46, 18, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Trunk
-    ctx.strokeStyle = '#ff9e42';
-    ctx.lineWidth = 8;
     ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = '#f2b33d';
+
+    ctx.save();
+    ctx.scale(0.25, 0.25);
+
+    // Mukut Top
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 11;
     ctx.beginPath();
-    ctx.moveTo(50, 48);
-    ctx.quadraticCurveTo(50, 72, 64, 70);
+    ctx.moveTo(256, 60);
+    ctx.quadraticCurveTo(280, 110, 256, 160);
+    ctx.quadraticCurveTo(232, 110, 256, 60);
     ctx.stroke();
 
-    // Tilak
-    ctx.fillStyle = '#c2185b';
+    ctx.lineWidth = 9;
     ctx.beginPath();
-    ctx.ellipse(50, 40, 2.5, 6, 0, 0, Math.PI * 2);
+    ctx.moveTo(220, 140);
+    ctx.quadraticCurveTo(256, 120, 292, 140);
+    ctx.stroke();
+
+    // Left Ear to Trunk Swoop
+    ctx.lineWidth = 13;
+    ctx.beginPath();
+    ctx.moveTo(220, 160);
+    ctx.bezierCurveTo(130, 150, 90, 240, 150, 310);
+    ctx.bezierCurveTo(190, 350, 240, 300, 246, 220);
+    ctx.bezierCurveTo(250, 170, 262, 170, 266, 220);
+    ctx.bezierCurveTo(272, 300, 240, 370, 270, 410);
+    ctx.bezierCurveTo(295, 440, 350, 430, 360, 380);
+    ctx.bezierCurveTo(370, 330, 320, 320, 310, 350);
+    ctx.stroke();
+
+    // Right Ear
+    ctx.beginPath();
+    ctx.moveTo(292, 160);
+    ctx.bezierCurveTo(382, 150, 422, 240, 362, 310);
+    ctx.stroke();
+
+    // Eye & Tilak
+    ctx.fillStyle = '#f2b33d';
+    ctx.beginPath();
+    ctx.ellipse(230, 200, 6, 10, -0.26, 0, Math.PI * 2);
     ctx.fill();
 
+    ctx.strokeStyle = '#e8547a';
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.moveTo(256, 165);
+    ctx.lineTo(256, 195);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(256, 155, 4, 0, Math.PI * 2);
+    ctx.fillStyle = '#f2b33d';
+    ctx.fill();
+
+    // 4 Accent Dots below
+    ctx.fillStyle = '#e8547a';
+    ctx.beginPath(); ctx.arc(196, 450, 9, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#f2b33d';
+    ctx.beginPath(); ctx.arc(236, 450, 9, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#00e5ff';
+    ctx.beginPath(); ctx.arc(276, 450, 9, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#a63bd6';
+    ctx.beginPath(); ctx.arc(316, 450, 9, 0, Math.PI * 2); ctx.fill();
+
+    ctx.restore();
     c.refresh();
   }
 

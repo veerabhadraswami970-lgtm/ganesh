@@ -22,11 +22,17 @@
 - [x] Implemented `src/scenes/EcoScene.js` (Eco Sort: Bamboo basket catcher with smooth keyboard/touch controls, touch guard ignoring clicks in bottom 90px, eco offerings + organic bonuses vs toxic plastic dodging)
 - [x] Implemented `src/scenes/RhythmScene.js` (Dhol Rhythm: 4-track Nashik Dhol rhythm action with [A][S][D][F] / touch pads, hit detection windows, streak multipliers, target 5 modaks to achieve 21/21 Modaks)
 
-## Phase 4 Status: ✅ Completed & Verified
-- [x] Implemented `src/scenes/CelebrationScene.js` (Grand Aarti Finale: 21 Golden Modaks celestial arc, interactive rotating Golden Diya Aarti Plate, festive temple chimes and dhol audio, fireworks & confetti, +2,000 completion bonus, Devotee Rank breakdown, high score persistence, and replay loop)
-- [x] Enhanced procedural vector textures in `src/scenes/BootScene.js` (Sacred Coconut, Offering Thali, Aarti Plate, glowing halos)
-- [x] Enhanced Web Audio synthesizer in `src/audio/SoundManager.js` (Aarti bell sequences, firework bursts, festive dhol rhythms)
-- [x] Verified complete flow in browser with 0 console errors.
+## Phase 5 Status: ✅ Completed & Verified (3D UI & Animated Loader)
+- [x] Implemented `src/ui3d/theme.js` (Brand gradient palette single source of truth: Indigo #3b2fd4, Cyan #00e5ff, Violet #a63bd6, Amber #f2b33d, Coral #e8547a, CSS variable injection, getGradient helper)
+- [x] Implemented `src/ui3d/loader.js` (Full-screen Three.js 3D animated loader: continuous-line Ganesha emblem, 140+ brand particles, 4-stage accent dots linked to real asset loading progress, Web Audio activation gesture, iOS orientation permission, clean WebGL context disposal & DOM removal, CSS fallback)
+- [x] Implemented `src/ui3d/background3d.js` (Ambient Three.js background: 3D glowing diyas with flickering flames, floating petals, dust, mouse/gyro parallax, gameplay throttling/pausing)
+- [x] Implemented `src/ui3d/menu3d.js` (3D CSS3 perspective & tilt cards with gradient glows, 3D button depths, interactive mini-game selector modal)
+- [x] Implemented `src/ui3d/transitions3d.js` (3D Cube-Rotate and Perspective Card-Flip screen transitions)
+- [x] Implemented `src/ui3d/index.js` (Unified 3D coordinator connecting Phaser events `loader:progress`, `scene:change` cleanly)
+- [x] Generated brand assets and favicons in `src/assets/branding/`
+- [x] Preserved all 2D Phaser mini-game logic intact in `src/scenes/`
+- [x] Updated `index.html` with Three.js CDN, brand favicon, and 3D canvas viewport
+- [x] Updated `style.css` with 3D perspective, tilt cards, 4-stage accent dots, and pure black festival styling
 
 ## Next Steps
-- Final polish and documentation updates.
+- Continuous polish and performance monitoring.

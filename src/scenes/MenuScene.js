@@ -104,15 +104,48 @@ export default class MenuScene extends Phaser.Scene {
     }).setOrigin(0.5);
     hsBox.add([hsBg, hsText]);
 
-    // Play Button
-    this.createButton(width / 2, 440, '▶ START FESTIVAL', '#1b5e20', '#2e7d32', () => {
+    // Play Quest Button
+    this.createButton(width / 2 - 130, 470, '▶ START QUEST', '#1b5e20', '#2e7d32', () => {
       soundManager.playBellChime();
       gameState.reset();
-      this.scene.start('StoryScene');
+      if (window.transition3DScene) {
+        window.transition3DScene(() => this.scene.start('StoryScene'), 'left');
+      } else {
+        this.scene.start('StoryScene');
+      }
+    });
+
+    // Select Mini-Game 3D Button
+    this.createButton(width / 2 + 130, 470, '🎴 SELECT GAME', '#3b2fd4', '#a63bd6', () => {
+      soundManager.playPickupDing();
+      if (window.open3DMiniGameSelector) {
+        window.open3DMiniGameSelector((sceneKey, idx) => {
+          gameState.reset();
+          if (window.transition3DScene) {
+            window.transition3DScene(() => {
+              this.scene.start(sceneKey);
+              this.scene.launch('HUDScene', {
+                challengeIndex: idx,
+                title: `Challenge ${idx + 1}`,
+                targetModaks: idx === 4 ? 5 : 4,
+                timeLimit: 35
+              });
+            }, 'left');
+          } else {
+            this.scene.start(sceneKey);
+            this.scene.launch('HUDScene', {
+              challengeIndex: idx,
+              title: `Challenge ${idx + 1}`,
+              targetModaks: idx === 4 ? 5 : 4,
+              timeLimit: 35
+            });
+          }
+        });
+      }
     });
 
     // How to Play Button
-    this.createButton(width / 2, 510, '📖 HOW TO PLAY', '#ff7700', '#e65100', () => {
+    this.createButton(width / 2, 535, '📖 HOW TO PLAY', '#ff7700', '#e65100', () => {
       soundManager.playPickupDing();
       this.showHowToPlayModal();
     });

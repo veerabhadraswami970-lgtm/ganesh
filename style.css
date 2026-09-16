@@ -1,13 +1,20 @@
 :root {
+  /* Brand Gradient Palette */
+  --brand-indigo: #3b2fd4;
+  --brand-violet: #a63bd6;
+  --brand-amber: #f2b33d;
+  --brand-coral: #e8547a;
+  --brand-cyan: #00e5ff;
+  --brand-black: #000000;
+  --brand-dark-bg: #08040f;
+  --brand-card-bg: #12081f;
+  --brand-gradient: linear-gradient(135deg, #3b2fd4 0%, #a63bd6 35%, #f2b33d 70%, #e8547a 100%);
+  --brand-gradient-h: linear-gradient(90deg, #3b2fd4, #00e5ff, #a63bd6, #f2b33d, #e8547a);
+
+  /* Festive Accents */
   --color-saffron: #ff7700;
-  --color-saffron-light: #ff9e42;
-  --color-marigold: #f9a825;
   --color-gold: #ffd54f;
-  --color-crimson: #c2185b;
   --color-emerald: #1b5e20;
-  --color-divine-purple: #4a148c;
-  --color-bg-dark: #12091f;
-  --color-bg-gradient: radial-gradient(circle at center, #2e1045 0%, #150624 70%, #0c0214 100%);
 }
 
 * {
@@ -23,10 +30,35 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: var(--color-bg-dark);
-  background: var(--color-bg-gradient);
+  background-color: var(--brand-black);
   font-family: 'Outfit', sans-serif;
   color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ambient 3D Three.js Background Canvas */
+#three-bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* 3D Perspective Viewport for Game */
+#game-perspective-wrapper {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  max-width: 900px;
+  max-height: 600px;
+  perspective: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,15 +68,15 @@ html, body {
   position: relative;
   width: 100%;
   height: 100%;
-  max-width: 900px;
-  max-height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(249, 168, 37, 0.2);
-  border-radius: 12px;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.9), 0 0 40px rgba(59, 47, 212, 0.25);
+  border-radius: 16px;
+  border: 1px solid rgba(242, 179, 61, 0.3);
   overflow: hidden;
   background-color: #000;
+  transform-style: preserve-3d;
 }
 
 #phaser-game {
@@ -57,4 +89,388 @@ canvas {
   width: 100% !important;
   height: 100% !important;
   object-fit: contain;
+}
+
+/* ==========================================================================
+   3D ANIMATED LOADER OVERLAY
+   ========================================================================== */
+.loader3d-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1), transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loader3d-overlay.fade-out {
+  opacity: 0;
+  transform: scale(1.08);
+  pointer-events: none;
+}
+
+.loader3d-canvas-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.loader3d-ui {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 260px;
+  pointer-events: auto;
+}
+
+.loader3d-title {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--brand-amber);
+  letter-spacing: 6px;
+  text-shadow: 0 0 20px rgba(242, 179, 61, 0.6);
+  margin-bottom: 2px;
+}
+
+.loader3d-subtitle {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 4px;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+/* 4 Accent Dots Progress Indicator Motif */
+.loader3d-dots {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.loader3d-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  opacity: 0.25;
+  transform: scale(0.85);
+  transition: all 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  box-shadow: 0 0 6px transparent;
+}
+
+.loader3d-dot.dot-coral { background-color: var(--brand-coral); }
+.loader3d-dot.dot-gold { background-color: var(--brand-amber); }
+.loader3d-dot.dot-cyan { background-color: var(--brand-cyan); }
+.loader3d-dot.dot-magenta { background-color: var(--brand-violet); }
+
+.loader3d-dot.active {
+  opacity: 1;
+  transform: scale(1.35);
+  box-shadow: 0 0 14px currentColor;
+}
+
+/* Real Progress Track */
+.loader3d-progress-track {
+  width: 280px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(242, 179, 61, 0.3);
+}
+
+.loader3d-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: var(--brand-gradient-h);
+  border-radius: 3px;
+  transition: width 0.2s ease-out;
+  box-shadow: 0 0 10px rgba(242, 179, 61, 0.8);
+}
+
+.loader3d-percent {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+
+/* Tap to Begin Button */
+.loader3d-begin-btn {
+  margin-top: 18px;
+  padding: 12px 32px;
+  background: var(--brand-gradient);
+  border: 2px solid #ffd54f;
+  border-radius: 28px;
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(232, 84, 122, 0.4), 0 0 20px rgba(242, 179, 61, 0.5);
+  opacity: 0;
+  transform: scale(0.85) translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.loader3d-begin-btn.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+  animation: pulse-glow 1.8s infinite alternate;
+}
+
+.loader3d-begin-btn:hover {
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(232, 84, 122, 0.6), 0 0 25px rgba(242, 179, 61, 0.8);
+}
+
+.loader3d-begin-btn:active {
+  transform: scale(0.96) translateY(2px);
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 15px rgba(242, 179, 61, 0.4); }
+  100% { box-shadow: 0 0 30px rgba(232, 84, 122, 0.8), 0 0 15px rgba(59, 47, 212, 0.6); }
+}
+
+/* Fallback spinner */
+.loader3d-fallback {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 5;
+}
+.loader3d-fallback-logo {
+  width: 140px;
+  height: 140px;
+}
+.loader3d-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--brand-amber);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   3D MINI-GAME SELECTOR MODAL & TILT CARDS
+   ========================================================================== */
+.modal-3d-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  z-index: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  perspective: 1200px;
+}
+
+.modal-3d-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-3d-content {
+  width: 90%;
+  max-width: 860px;
+  max-height: 90vh;
+  background: var(--brand-dark-bg);
+  border: 1.5px solid rgba(242, 179, 61, 0.5);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(59, 47, 212, 0.3);
+  overflow-y: auto;
+}
+
+.modal-3d-title {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--brand-amber);
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.modal-3d-sub {
+  font-size: 14px;
+  color: #ff9e42;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.challenge-grid-3d {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  width: 100%;
+  margin-bottom: 24px;
+  perspective: 1000px;
+}
+
+/* 3D Tilt Card */
+.challenge-card-3d {
+  position: relative;
+  background: var(--brand-card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 18px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px);
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s ease;
+  overflow: hidden;
+}
+
+.challenge-card-3d:hover {
+  border-color: rgba(242, 179, 61, 0.8);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 24px rgba(242, 179, 61, 0.4);
+}
+
+.card-3d-glow {
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.card-3d-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.card-3d-badge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--brand-amber);
+  background: rgba(242, 179, 61, 0.15);
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.card-3d-icon {
+  font-size: 32px;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.card-3d-title {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.card-3d-subtitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--brand-coral);
+  margin-bottom: 8px;
+}
+
+.card-3d-modaks {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--brand-amber);
+  margin-bottom: 8px;
+}
+
+.card-3d-desc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+.card-3d-play-btn {
+  width: 100%;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid var(--brand-amber);
+  border-radius: 18px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.card-3d-play-btn:hover {
+  background: var(--brand-gradient);
+  transform: translateZ(8px);
+}
+
+.modal-3d-close-btn {
+  padding: 10px 24px;
+  background: #212121;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.modal-3d-close-btn:hover {
+  background: #333;
+  border-color: #fff;
+}
+
+/* ==========================================================================
+   3D HUD BADGES & POP ANIMATIONS
+   ========================================================================== */
+.hud-badge-flip {
+  animation: badge-flip-pop 0.45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+@keyframes badge-flip-pop {
+  0% { transform: scale(1) rotateX(0deg); }
+  50% { transform: scale(1.25) rotateX(180deg); }
+  100% { transform: scale(1) rotateX(360deg); }
 }

@@ -13,6 +13,7 @@ import EcoScene from './scenes/EcoScene.js';
 import RhythmScene from './scenes/RhythmScene.js';
 import ResultScene from './scenes/ResultScene.js';
 import CelebrationScene from './scenes/CelebrationScene.js';
+import { init3DUI } from './ui3d/index.js';
 
 const config = {
   type: Phaser.AUTO,
@@ -30,7 +31,7 @@ const config = {
       debug: false
     }
   },
-  backgroundColor: '#12091f',
+  backgroundColor: '#000000',
   scene: [
     BootScene,
     MenuScene,
@@ -49,4 +50,7 @@ const config = {
 window.addEventListener('load', () => {
   const game = new Phaser.Game(config);
   window.game = game;
+
+  // Initialize 3D Loader, 3D Ambient Background & UI Shell
+  init3DUI(game);
 });

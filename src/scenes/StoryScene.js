@@ -109,13 +109,21 @@ export default class StoryScene extends Phaser.Scene {
 
     btn.on('pointerdown', () => {
       soundManager.playBellChime();
-      this.scene.start('ModakRunScene');
-      this.scene.launch('HUDScene', {
-        challengeIndex: 0,
-        title: 'Challenge 1: Modak Run',
-        targetModaks: 4,
-        timeLimit: 30
-      });
+      const launchRun = () => {
+        this.scene.start('ModakRunScene');
+        this.scene.launch('HUDScene', {
+          challengeIndex: 0,
+          title: 'Challenge 1: Modak Run',
+          targetModaks: 4,
+          timeLimit: 30
+        });
+      };
+
+      if (window.transition3DScene) {
+        window.transition3DScene(launchRun, 'left');
+      } else {
+        launchRun();
+      }
     });
   }
 }

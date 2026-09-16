@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ganeshaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b2fd4" />
+      <stop offset="25%" stop-color="#00e5ff" />
+      <stop offset="50%" stop-color="#a63bd6" />
+      <stop offset="75%" stop-color="#f2b33d" />
+      <stop offset="100%" stop-color="#e8547a" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="#000000" rx="64" />
+  <g filter="url(#glow)">
+    <!-- Continuous line art Ganesha: Mukut, Ears, Head, Trunk -->
+    <!-- Crown / Mukut Top -->
+    <path d="M 256 60 Q 280 110 256 160 Q 232 110 256 60 Z" fill="none" stroke="url(#ganeshaGrad)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 220 140 Q 256 120 292 140" fill="none" stroke="url(#ganeshaGrad)" stroke-width="9" stroke-linecap="round"/>
+    
+    <!-- Left Ear to Trunk continuous swoop -->
+    <path d="M 220 160 C 130 150 90 240 150 310 C 190 350 240 300 246 220 C 250 170 262 170 266 220 C 272 300 240 370 270 410 C 295 440 350 430 360 380 C 370 330 320 320 310 350" fill="none" stroke="url(#ganeshaGrad)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Right Ear Arc -->
+    <path d="M 292 160 C 382 150 422 240 362 310" fill="none" stroke="url(#ganeshaGrad)" stroke-width="12" stroke-linecap="round"/>
+
+    <!-- Sacred Eye & Tilak -->
+    <ellipse cx="230" cy="200" rx="6" ry="10" fill="#f2b33d" transform="rotate(-15 230 200)"/>
+    <path d="M 256 165 L 256 195" fill="none" stroke="#e8547a" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="256" cy="155" r="4" fill="#f2b33d"/>
+
+    <!-- Tusk -->
+    <path d="M 225 285 Q 200 290 190 280" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <!-- 4 Accent Dots Beneath Logo Motif -->
+  <g transform="translate(0, 460)">
+    <circle cx="196" cy="0" r="10" fill="#e8547a" />
+    <circle cx="236" cy="0" r="10" fill="#f2b33d" />
+    <circle cx="276" cy="0" r="10" fill="#00e5ff" />
+    <circle cx="316" cy="0" r="10" fill="#a63bd6" />
+  </g>
+</svg>

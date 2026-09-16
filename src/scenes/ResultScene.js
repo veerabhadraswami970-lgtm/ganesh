@@ -118,13 +118,21 @@ export default class ResultScene extends Phaser.Scene {
 
     btn.on('pointerdown', () => {
       soundManager.playBellChime();
-      if (this.nextScene && this.scene.get(this.nextScene)) {
-        this.scene.start(this.nextScene);
-        if (this.nextScene !== 'CelebrationScene' && this.nextData) {
-          this.scene.launch('HUDScene', this.nextData);
+      const proceed = () => {
+        if (this.nextScene && this.scene.get(this.nextScene)) {
+          this.scene.start(this.nextScene);
+          if (this.nextScene !== 'CelebrationScene' && this.nextData) {
+            this.scene.launch('HUDScene', this.nextData);
+          }
+        } else {
+          this.scene.start('MenuScene');
         }
+      };
+
+      if (window.transition3DScene) {
+        window.transition3DScene(proceed, 'left');
       } else {
-        this.scene.start('MenuScene');
+        proceed();
       }
     });
   }
