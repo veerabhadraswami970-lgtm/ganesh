@@ -53,9 +53,20 @@ Open `http://localhost:8080` in your browser.
 
 ---
 
+## 🎨 3D Animated Visuals & Branding System
+
+- **3D Animated Loader**: Full-screen Three.js WebGL experience with an emissive continuous-line Ganesha emblem, 140+ drifting brand particles, 4-stage accent dots linked to real asset loading, and Web Audio gesture activation.
+- **Continuous-Line Brand Palette**: Indigo (`#3b2fd4`) $\rightarrow$ Cyan (`#00e5ff`) $\rightarrow$ Violet/Magenta (`#a63bd6`) $\rightarrow$ Amber/Gold (`#f2b33d`) $\rightarrow$ Coral/Rose (`#e8547a`) on pure black.
+- **3D Ambient Background**: Three.js canvas featuring floating diyas with flickering point lights, petals, golden dust, and mouse/gyroscope parallax responsiveness.
+- **3D Mini-Game Selector & Tilt Cards**: CSS3 3D perspective (`perspective: 1200px`, `preserve-3d`) card tilt effects and 3D button depths.
+- **3D Scene Transitions**: Smooth 3D Cube-Rotate and Perspective Card-Flip transitions between scenes.
+
+---
+
 ## 🛠 Tech Stack & Tools Disclosed
 
-- **Game Engine**: Phaser 3 (CDN)
-- **Architecture**: Vanilla HTML5, CSS3, ES6 Modules, Web Audio API Synthesizer
-- **Graphics**: High-fidelity procedural canvas vector generation (Saffron, Marigold, Crimson, Emerald, Divine Purple palette)
+- **2D Game Engine**: Phaser 3 (CDN, native ES6 modules)
+- **3D Visual & UI Layer**: Three.js r160 (CDN) + CSS3 3D Transforms
+- **Audio Synthesizer**: Custom Web Audio API synthesizer (Nashik dhol thumps, tuned temple chimes, fireworks, victory fanfare)
+- **Zero Build Step**: Native browser ES modules loaded directly via `index.html` (no bundler required)
 - **AI Tooling Disclosure**: Google Antigravity IDE (Agentic scaffolding & pair programming)
