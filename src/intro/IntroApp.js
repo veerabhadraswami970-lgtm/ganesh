@@ -41,6 +41,15 @@ export function IntroApp({ onStartGame }) {
     }, 500);
   }, [onStartGame]);
 
+  const handleBackToIntro = React.useCallback(() => {
+    setStage('transition');
+    setFadeOpacity(1);
+    setTimeout(() => {
+      setStage('intro');
+      setFadeOpacity(0);
+    }, 500);
+  }, []);
+
   return React.createElement(
     'div',
     { className: 'fixed inset-0 w-full h-full bg-black overflow-hidden z-50' },
@@ -49,7 +58,7 @@ export function IntroApp({ onStartGame }) {
     stage === 'intro' && React.createElement(IntroVideo, { onVideoEnded: handleVideoEnded }),
 
     // Stage 2: 21 Modak Game Loader
-    stage === 'loading' && React.createElement(GameLoader, { onEnterAdventure: handleEnterAdventure }),
+    stage === 'loading' && React.createElement(GameLoader, { onEnterAdventure: handleEnterAdventure, onBackToIntro: handleBackToIntro }),
 
     // Black transition overlay
     React.createElement('div', {

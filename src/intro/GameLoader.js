@@ -5,7 +5,7 @@ import { GaneshaVisual } from './GaneshaVisual.js';
 import { LoadingProgress } from './LoadingProgress.js';
 import { EnterAdventureButton } from './EnterAdventureButton.js';
 
-export function GameLoader({ onEnterAdventure }) {
+export function GameLoader({ onEnterAdventure, onBackToIntro }) {
   const [progress, setProgress] = React.useState(0);
   const [isReady, setIsReady] = React.useState(false);
 
@@ -35,6 +35,16 @@ export function GameLoader({ onEnterAdventure }) {
     {
       className: 'relative w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#0c0214] via-[#1a0526] to-[#08020f] text-white overflow-hidden p-6 select-none animate-fadeIn'
     },
+    // Top-Left Back to Video Button
+    onBackToIntro &&
+      React.createElement(
+        'button',
+        {
+          onClick: onBackToIntro,
+          className: 'absolute top-6 left-6 z-40 px-4 py-2 rounded-full bg-black/60 hover:bg-black/80 border border-amber-400/40 text-amber-300 font-semibold text-xs tracking-widest uppercase backdrop-blur-sm transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.8)]'
+        },
+        '⬅ Rewatch Video'
+      ),
     // Ambient background lights
     React.createElement('div', {
       className: 'absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-amber-600/10 blur-3xl pointer-events-none'

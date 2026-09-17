@@ -266,21 +266,21 @@ export default class MenuScene extends Phaser.Scene {
       }
     );
 
-    // Close button
+    // Close / Back button
     const closeBtn = this.add.container(width / 2, height - 75);
     const closeBg = this.add.graphics();
     closeBg.fillStyle(0xc2185b, 1);
     closeBg.lineStyle(2, 0xffd54f, 1);
-    closeBg.fillRoundedRect(-80, -20, 160, 40, 20);
-    closeBg.strokeRoundedRect(-80, -20, 160, 40, 20);
-    const closeText = this.add.text(0, 0, 'GOT IT!', {
+    closeBg.fillRoundedRect(-100, -20, 200, 40, 20);
+    closeBg.strokeRoundedRect(-100, -20, 200, 40, 20);
+    const closeText = this.add.text(0, 0, '⬅ BACK TO MENU', {
       fontFamily: 'Outfit, sans-serif',
-      fontSize: '16px',
+      fontSize: '15px',
       fontWeight: '800',
       color: '#ffffff'
     }).setOrigin(0.5);
     closeBtn.add([closeBg, closeText]);
-    closeBtn.setSize(160, 40);
+    closeBtn.setSize(200, 40);
     closeBtn.setInteractive({ useHandCursor: true });
     closeBtn.on('pointerdown', () => {
       soundManager.playDholThump(120);

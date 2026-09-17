@@ -22,6 +22,53 @@ export default class StoryScene extends Phaser.Scene {
       this.add.image(x, 20, 'toran').setScale(1.1);
     }
 
+    // Top-Left Back Button
+    const backBtn = this.add.container(65, 30).setDepth(20);
+    const backBg = this.add.graphics();
+    backBg.fillStyle(0x12091f, 0.9);
+    backBg.lineStyle(1.5, 0xffd54f, 0.8);
+    backBg.fillRoundedRect(-45, -16, 90, 32, 16);
+    backBg.strokeRoundedRect(-45, -16, 90, 32, 16);
+
+    const backText = this.add.text(0, 0, '⬅ BACK', {
+      fontFamily: 'Outfit, sans-serif',
+      fontSize: '13px',
+      fontWeight: '800',
+      color: '#ffd54f'
+    }).setOrigin(0.5);
+
+    backBtn.add([backBg, backText]);
+    backBtn.setSize(90, 32);
+    backBtn.setInteractive({ useHandCursor: true });
+
+    backBtn.on('pointerover', () => {
+      backBg.clear();
+      backBg.fillStyle(0x311b92, 1);
+      backBg.lineStyle(1.5, 0xffffff, 1);
+      backBg.fillRoundedRect(-45, -16, 90, 32, 16);
+      backBg.strokeRoundedRect(-45, -16, 90, 32, 16);
+      backBtn.setScale(1.05);
+    });
+
+    backBtn.on('pointerout', () => {
+      backBg.clear();
+      backBg.fillStyle(0x12091f, 0.9);
+      backBg.lineStyle(1.5, 0xffd54f, 0.8);
+      backBg.fillRoundedRect(-45, -16, 90, 32, 16);
+      backBg.strokeRoundedRect(-45, -16, 90, 32, 16);
+      backBtn.setScale(1.0);
+    });
+
+    backBtn.on('pointerdown', () => {
+      soundManager.playBellChime();
+      const goMenu = () => this.scene.start('MenuScene');
+      if (window.transition3DScene) {
+        window.transition3DScene(goMenu, 'right');
+      } else {
+        goMenu();
+      }
+    });
+
     // Ganesha Divine Icon
     const emblem = this.add.image(width / 2, 110, 'ganesha_emblem').setScale(1.2);
     this.tweens.add({

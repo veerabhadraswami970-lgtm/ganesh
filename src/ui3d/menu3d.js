@@ -116,7 +116,7 @@ export class Menu3D {
         </div>
 
         <button class="modal-3d-close-btn" id="modal-3d-close">
-          <span>✕ RETURN TO MENU</span>
+          <span>⬅ BACK TO MENU</span>
         </button>
       </div>
     `;
@@ -171,7 +171,7 @@ export class Menu3D {
         </div>
 
         <button class="modal-3d-close-btn" id="modal-lb-close">
-          <span>✕ CLOSE LEADERBOARD</span>
+          <span>⬅ BACK TO MENU</span>
         </button>
       </div>
     `;

@@ -35,6 +35,35 @@ export default class ResultScene extends Phaser.Scene {
       this.add.image(x, 20, 'toran').setScale(1.1);
     }
 
+    // Top-Left Back Button
+    const topBackBtn = this.add.container(65, 30).setDepth(20);
+    const topBackBg = this.add.graphics();
+    topBackBg.fillStyle(0x12091f, 0.9);
+    topBackBg.lineStyle(1.5, 0xffd54f, 0.8);
+    topBackBg.fillRoundedRect(-45, -16, 90, 32, 16);
+    topBackBg.strokeRoundedRect(-45, -16, 90, 32, 16);
+
+    const topBackText = this.add.text(0, 0, '⬅ BACK', {
+      fontFamily: 'Outfit, sans-serif',
+      fontSize: '13px',
+      fontWeight: '800',
+      color: '#ffd54f'
+    }).setOrigin(0.5);
+
+    topBackBtn.add([topBackBg, topBackText]);
+    topBackBtn.setSize(90, 32);
+    topBackBtn.setInteractive({ useHandCursor: true });
+
+    topBackBtn.on('pointerdown', () => {
+      soundManager.playBellChime();
+      const goMenu = () => this.scene.start('MenuScene');
+      if (window.transition3DScene) {
+        window.transition3DScene(goMenu, 'right');
+      } else {
+        goMenu();
+      }
+    });
+
     // Result Card
     const card = this.add.container(width / 2, 280);
     const cardBg = this.add.graphics();
@@ -96,44 +125,99 @@ export default class ResultScene extends Phaser.Scene {
 
     card.add([cardBg, title, sub, breakdownText, totalScoreText, ratingText]);
 
-    // Button: Continue or Next
-    const btn = this.add.container(width / 2, 495);
-    const btnBg = this.add.graphics();
-    btnBg.fillStyle(0x1b5e20, 1);
-    btnBg.lineStyle(2, 0xffd54f, 1);
-    btnBg.fillRoundedRect(-140, -22, 280, 44, 22);
-    btnBg.strokeRoundedRect(-140, -22, 280, 44, 22);
+    // Bottom Action Buttons: "⬅ MAIN MENU" & "CONTINUE ➔"
+    if (this.nextScene) {
+      // 1. Back to Menu Button
+      const menuBtn = this.add.container(width / 2 - 125, 495);
+      const menuBg = this.add.graphics();
+      menuBg.fillStyle(0x311b92, 1);
+      menuBg.lineStyle(2, 0xffd54f, 1);
+      menuBg.fillRoundedRect(-110, -22, 220, 44, 22);
+      menuBg.strokeRoundedRect(-110, -22, 220, 44, 22);
 
-    const btnLabel = this.nextScene ? 'CONTINUE ➔' : 'RETURN TO MENU';
-    const btnText = this.add.text(0, 0, btnLabel, {
-      fontFamily: 'Outfit, sans-serif',
-      fontSize: '16px',
-      fontWeight: '800',
-      color: '#ffffff'
-    }).setOrigin(0.5);
+      const menuText = this.add.text(0, 0, '⬅ MAIN MENU', {
+        fontFamily: 'Outfit, sans-serif',
+        fontSize: '15px',
+        fontWeight: '800',
+        color: '#ffffff'
+      }).setOrigin(0.5);
 
-    btn.add([btnBg, btnText]);
-    btn.setSize(280, 44);
-    btn.setInteractive({ useHandCursor: true });
+      menuBtn.add([menuBg, menuText]);
+      menuBtn.setSize(220, 44);
+      menuBtn.setInteractive({ useHandCursor: true });
 
-    btn.on('pointerdown', () => {
-      soundManager.playBellChime();
-      const proceed = () => {
-        if (this.nextScene && this.scene.get(this.nextScene)) {
-          this.scene.start(this.nextScene);
-          if (this.nextScene !== 'CelebrationScene' && this.nextData) {
-            this.scene.launch('HUDScene', this.nextData);
-          }
+      menuBtn.on('pointerdown', () => {
+        soundManager.playBellChime();
+        const goMenu = () => this.scene.start('MenuScene');
+        if (window.transition3DScene) {
+          window.transition3DScene(goMenu, 'right');
         } else {
-          this.scene.start('MenuScene');
+          goMenu();
         }
-      };
+      });
 
-      if (window.transition3DScene) {
-        window.transition3DScene(proceed, 'left');
-      } else {
-        proceed();
-      }
-    });
+      // 2. Continue Button
+      const contBtn = this.add.container(width / 2 + 125, 495);
+      const contBg = this.add.graphics();
+      contBg.fillStyle(0x1b5e20, 1);
+      contBg.lineStyle(2, 0xffd54f, 1);
+      contBg.fillRoundedRect(-110, -22, 220, 44, 22);
+      contBg.strokeRoundedRect(-110, -22, 220, 44, 22);
+
+      const contText = this.add.text(0, 0, 'CONTINUE ➔', {
+        fontFamily: 'Outfit, sans-serif',
+        fontSize: '15px',
+        fontWeight: '800',
+        color: '#ffffff'
+      }).setOrigin(0.5);
+
+      contBtn.add([contBg, contText]);
+      contBtn.setSize(220, 44);
+      contBtn.setInteractive({ useHandCursor: true });
+
+      contBtn.on('pointerdown', () => {
+        soundManager.playBellChime();
+        const proceed = () => {
+          if (this.nextScene && this.scene.get(this.nextScene)) {
+            this.scene.start(this.nextScene);
+            if (this.nextScene !== 'CelebrationScene' && this.nextData) {
+              this.scene.launch('HUDScene', this.nextData);
+            }
+          } else {
+            this.scene.start('MenuScene');
+          }
+        };
+
+        if (window.transition3DScene) {
+          window.transition3DScene(proceed, 'left');
+        } else {
+          proceed();
+        }
+      });
+    } else {
+      // Single Return to Menu Button
+      const btn = this.add.container(width / 2, 495);
+      const btnBg = this.add.graphics();
+      btnBg.fillStyle(0x1b5e20, 1);
+      btnBg.lineStyle(2, 0xffd54f, 1);
+      btnBg.fillRoundedRect(-140, -22, 280, 44, 22);
+      btnBg.strokeRoundedRect(-140, -22, 280, 44, 22);
+
+      const btnText = this.add.text(0, 0, 'RETURN TO MENU', {
+        fontFamily: 'Outfit, sans-serif',
+        fontSize: '16px',
+        fontWeight: '800',
+        color: '#ffffff'
+      }).setOrigin(0.5);
+
+      btn.add([btnBg, btnText]);
+      btn.setSize(280, 44);
+      btn.setInteractive({ useHandCursor: true });
+
+      btn.on('pointerdown', () => {
+        soundManager.playBellChime();
+        this.scene.start('MenuScene');
+      });
+    }
   }
 }

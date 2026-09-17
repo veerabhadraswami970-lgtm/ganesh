@@ -27,29 +27,84 @@ export default class HUDScene extends Phaser.Scene {
     topBar.lineStyle(2, 0xffd54f, 0.6);
     topBar.lineBetween(0, 55, width, 55);
 
+    // Top-Left Exit/Back Button
+    const backBtn = this.add.container(55, 27);
+    const backBg = this.add.graphics();
+    backBg.fillStyle(0x1a092b, 0.95);
+    backBg.lineStyle(1.5, 0xffd54f, 0.9);
+    backBg.fillRoundedRect(-40, -15, 80, 30, 15);
+    backBg.strokeRoundedRect(-40, -15, 80, 30, 15);
+
+    const backText = this.add.text(0, 0, '⬅ BACK', {
+      fontFamily: 'Outfit, sans-serif',
+      fontSize: '12px',
+      fontWeight: '800',
+      color: '#ffd54f'
+    }).setOrigin(0.5);
+
+    backBtn.add([backBg, backText]);
+    backBtn.setSize(80, 30);
+    backBtn.setInteractive({ useHandCursor: true });
+
+    backBtn.on('pointerover', () => {
+      backBg.clear();
+      backBg.fillStyle(0xc2185b, 1);
+      backBg.lineStyle(1.5, 0xffffff, 1);
+      backBg.fillRoundedRect(-40, -15, 80, 30, 15);
+      backBg.strokeRoundedRect(-40, -15, 80, 30, 15);
+      backBtn.setScale(1.05);
+    });
+
+    backBtn.on('pointerout', () => {
+      backBg.clear();
+      backBg.fillStyle(0x1a092b, 0.95);
+      backBg.lineStyle(1.5, 0xffd54f, 0.9);
+      backBg.fillRoundedRect(-40, -15, 80, 30, 15);
+      backBg.strokeRoundedRect(-40, -15, 80, 30, 15);
+      backBtn.setScale(1.0);
+    });
+
+    backBtn.on('pointerdown', (pointer) => {
+      pointer.event.stopPropagation();
+      soundManager.playBellChime();
+      const activeGameplayScenes = ['ModakRunScene', 'MemoryScene', 'PandalScene', 'EcoScene', 'RhythmScene'];
+      activeGameplayScenes.forEach((key) => {
+        if (this.scene.isActive(key)) {
+          this.scene.stop(key);
+        }
+      });
+      this.scene.stop('HUDScene');
+      const goMenu = () => this.scene.start('MenuScene');
+      if (window.transition3DScene) {
+        window.transition3DScene(goMenu, 'right');
+      } else {
+        goMenu();
+      }
+    });
+
     // Challenge Title
-    this.titleText = this.add.text(20, 16, this.challengeTitle, {
+    this.titleText = this.add.text(105, 17, this.challengeTitle, {
       fontFamily: 'Cinzel, Georgia, serif',
-      fontSize: '17px',
+      fontSize: '15px',
       fontWeight: '700',
       color: '#ffd54f'
     });
 
     // Score Display
-    this.scoreText = this.add.text(280, 16, `SCORE: ${gameState.score}`, {
+    this.scoreText = this.add.text(345, 17, `SCORE: ${gameState.score}`, {
       fontFamily: 'Outfit, sans-serif',
-      fontSize: '17px',
+      fontSize: '16px',
       fontWeight: '800',
       color: '#ffffff'
     });
 
     // 21-Modak Progress Bar
-    this.createModakProgressBar(470, 18);
+    this.createModakProgressBar(520, 18);
 
     // Countdown Timer
-    this.timerText = this.add.text(width - 90, 16, `⏱ ${this.timeLeft}s`, {
+    this.timerText = this.add.text(width - 85, 17, `⏱ ${this.timeLeft}s`, {
       fontFamily: 'Outfit, sans-serif',
-      fontSize: '17px',
+      fontSize: '16px',
       fontWeight: '800',
       color: '#ffd54f'
     });

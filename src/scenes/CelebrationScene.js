@@ -27,6 +27,30 @@ export default class CelebrationScene extends Phaser.Scene {
       this.add.image(x, 20, 'toran').setScale(1.1);
     }
 
+    // Top-Left Back Button
+    const backBtn = this.add.container(65, 30).setDepth(20);
+    const backBg = this.add.graphics();
+    backBg.fillStyle(0x12091f, 0.9);
+    backBg.lineStyle(1.5, 0xffd54f, 0.8);
+    backBg.fillRoundedRect(-45, -16, 90, 32, 16);
+    backBg.strokeRoundedRect(-45, -16, 90, 32, 16);
+
+    const backText = this.add.text(0, 0, '⬅ BACK', {
+      fontFamily: 'Outfit, sans-serif',
+      fontSize: '13px',
+      fontWeight: '800',
+      color: '#ffd54f'
+    }).setOrigin(0.5);
+
+    backBtn.add([backBg, backText]);
+    backBtn.setSize(90, 32);
+    backBtn.setInteractive({ useHandCursor: true });
+
+    backBtn.on('pointerdown', () => {
+      soundManager.playBellChime();
+      this.scene.start('MenuScene');
+    });
+
     // Grand Title
     this.add.text(width / 2, 45, '🎆 GANPATI BAPPA MORYA! 🎆', {
       fontFamily: 'Cinzel, Georgia, serif',
