@@ -5,7 +5,7 @@
 import { IntroVideo } from './IntroVideo.js';
 import { GameLoader } from './GameLoader.js';
 
-export function IntroApp() {
+export function IntroApp({ onStartGame }) {
   const [stage, setStage] = React.useState('intro'); // 'intro' | 'transition' | 'loading' | 'game'
   const [fadeOpacity, setFadeOpacity] = React.useState(0);
 
@@ -29,13 +29,17 @@ export function IntroApp() {
       setFadeOpacity(0);
       
       // Notify Phaser & 3D UI that intro is complete
-      const gameContainer = document.getElementById('game-perspective-wrapper');
-      if (gameContainer) {
-        gameContainer.style.opacity = '1';
-        gameContainer.style.pointerEvents = 'auto';
+      if (onStartGame) {
+        onStartGame();
+      } else {
+        const gameContainer = document.getElementById('game-perspective-wrapper');
+        if (gameContainer) {
+          gameContainer.style.opacity = '1';
+          gameContainer.style.pointerEvents = 'auto';
+        }
       }
     }, 500);
-  }, []);
+  }, [onStartGame]);
 
   return React.createElement(
     'div',

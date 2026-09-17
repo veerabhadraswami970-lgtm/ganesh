@@ -37,6 +37,14 @@
 - [x] Added `render.yaml` for Render.com static deployment
 - [x] Added `vercel.json` for Vercel 1-click deployment
 
+## Phase 6 Status: ✅ Completed & Verified (Cinematic Intro & Divine Idol Visuals)
+- [x] Implemented `a_i_need_this_image_3d.mp4` full-screen cinematic opening video with responsive controls and "Skip Intro ➔" button in `src/intro/IntroVideo.js`.
+- [x] Integrated sacred `ganesha-idol.jpg` with divine glowing halo, golden border, and float animation in `src/intro/GaneshaVisual.js`.
+- [x] Streamlined opening experience state machine in `src/intro/IntroApp.js` & `src/intro/index.js` (Intro Video → Fade to Black → 21 Modak Ganesha Idol Loader → Main Game).
+- [x] Updated fallback branding in `src/ui3d/loader.js` and favicons in `index.html`.
+- [x] Verified full browser flow end-to-end with 0 console errors.
+
 ## Next Steps
 - Continuous polish and live deployment monitoring.
+
 

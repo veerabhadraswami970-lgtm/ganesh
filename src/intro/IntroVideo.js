@@ -51,18 +51,37 @@ export function IntroVideo({ onVideoEnded }) {
     }
   };
 
+  const handleSkip = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.pause();
+    }
+    if (onVideoEnded) {
+      onVideoEnded();
+    }
+  };
+
   return React.createElement(
     'div',
     { className: 'relative w-full h-full flex items-center justify-center bg-black overflow-hidden' },
     React.createElement('video', {
       ref: videoRef,
-      src: './public/assets/ganesha-intro.mp4',
+      src: './public/assets/a_i_need_this_image_3d.mp4',
       autoPlay: true,
       playsInline: true,
       preload: 'auto',
       className: 'w-full h-full max-w-full max-h-full object-contain sm:object-cover bg-black',
-      'aria-label': 'Ganesha 21 Modaks Cinematic Intro'
+      'aria-label': 'Ganesha 3D Cinematic Intro'
     }),
+    // Skip Button
+    React.createElement(
+      'button',
+      {
+        onClick: handleSkip,
+        className: 'absolute top-6 right-6 z-40 px-4 py-2 rounded-full bg-black/60 hover:bg-black/80 border border-amber-400/40 text-amber-300 font-semibold text-xs tracking-widest uppercase backdrop-blur-sm transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.8)]'
+      },
+      'Skip Intro ➔'
+    ),
     showSoundPrompt && React.createElement(VideoSoundControl, { onEnableSound: handleEnableSound })
   );
 }

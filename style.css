@@ -474,3 +474,14 @@ canvas {
   50% { transform: scale(1.25) rotateX(180deg); }
   100% { transform: scale(1) rotateX(360deg); }
 }
+
+@keyframes idol-glow {
+  0% { transform: translateY(0px) scale(1); filter: drop-shadow(0 0 15px rgba(242,179,61,0.5)); }
+  50% { transform: translateY(-4px) scale(1.02); filter: drop-shadow(0 0 25px rgba(242,179,61,0.8)); }
+  100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 0 15px rgba(242,179,61,0.5)); }
+}
+
+.animate-idol-float {
+  animation: idol-glow 3.5s ease-in-out infinite;
+}
+

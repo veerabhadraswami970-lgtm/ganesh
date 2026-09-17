@@ -64,7 +64,7 @@ export class Loader3D {
 
       <!-- Fallback spinner if WebGL is unavailable -->
       <div class="loader3d-fallback" id="loader3d-fallback" style="display: none;">
-        <img src="src/assets/branding/ganesha-logo.svg" alt="Ganesha Logo" class="loader3d-fallback-logo" />
+        <img src="src/assets/branding/ganesha-idol.jpg" alt="Ganesha Idol" class="loader3d-fallback-logo rounded-2xl shadow-lg" />
         <div class="loader3d-spinner"></div>
       </div>
     `;

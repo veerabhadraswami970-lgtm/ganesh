@@ -1,7 +1,7 @@
 /**
- * Mounts the React Opening Experience
+ * Mounts the React Opening Experience (3D Video Intro -> Ganesha Idol 21 Modak Loader)
  */
-import { GameIntro } from './GameIntro.js';
+import { IntroApp } from './IntroApp.js';
 
 export function initOpeningExperience() {
   const rootEl = document.getElementById('intro-root');
@@ -20,8 +20,9 @@ export function initOpeningExperience() {
 
   if (ReactDOM.createRoot) {
     const root = ReactDOM.createRoot(rootEl);
-    root.render(React.createElement(GameIntro, { onStartGame: handleStartGame }));
+    root.render(React.createElement(IntroApp, { onStartGame: handleStartGame }));
   } else {
-    ReactDOM.render(React.createElement(GameIntro, { onStartGame: handleStartGame }), rootEl);
+    ReactDOM.render(React.createElement(IntroApp, { onStartGame: handleStartGame }), rootEl);
   }
 }
+

@@ -173,9 +173,9 @@ export function CinematicOpening({ onStartGame }) {
           className: 'absolute -bottom-2 -left-3 w-16 h-4 rounded-full bg-black/70 blur-sm'
         }),
         React.createElement('img', {
-          src: './src/assets/branding/ganesha-logo.svg',
+          src: './src/assets/branding/ganesha-idol.jpg',
           alt: 'Mushika',
-          className: `w-14 h-14 object-contain ${
+          className: `w-14 h-14 object-cover rounded-full ${
             mouseProgress < 0.95 ? 'animate-bounce drop-shadow-[0_0_12px_rgba(242,179,61,0.8)]' : 'drop-shadow-[0_0_20px_rgba(0,229,255,1)]'
           }`
         })
