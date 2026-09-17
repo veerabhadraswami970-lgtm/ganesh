@@ -55,6 +55,8 @@ Open `http://localhost:8080` in your browser.
 
 ## 🎨 3D Animated Visuals & Branding System
 
+- **3D Cinematic Video Intro**: Full-screen playback of `a_i_need_this_image_3d.mp4` with audio controls and skip functionality.
+- **Divine 21 Modak Loader**: Elegant interactive loading experience featuring the sacred Ganesha Idol (`ganesha-idol.jpg`) with radiant golden glow, animated lighting halo, and real-time 21-modak progress indicators.
 - **3D Animated Loader**: Full-screen Three.js WebGL experience with an emissive continuous-line Ganesha emblem, 140+ drifting brand particles, 4-stage accent dots linked to real asset loading, and Web Audio gesture activation.
 - **Continuous-Line Brand Palette**: Indigo (`#3b2fd4`) $\rightarrow$ Cyan (`#00e5ff`) $\rightarrow$ Violet/Magenta (`#a63bd6`) $\rightarrow$ Amber/Gold (`#f2b33d`) $\rightarrow$ Coral/Rose (`#e8547a`) on pure black.
 - **3D Ambient Background**: Three.js canvas featuring floating diyas with flickering point lights, petals, golden dust, and mouse/gyroscope parallax responsiveness.
